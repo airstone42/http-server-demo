@@ -14,7 +14,7 @@ const char default_html[] =
         "    </header>\n"
         "    <p>This is an default index page.</p>\n"
         "</body>\n"
-        "</html>";
+        "</html>\n";
 
 void handle(struct handle_args *args) {
     pthread_detach(pthread_self());
@@ -42,6 +42,11 @@ void handle(struct handle_args *args) {
     struct tm tm = *gmtime(&now);
     strftime(date, sizeof(date), "%a, %d %b %Y %H:%M:%S %Z", &tm);
 
+    size_t html_length = strlen(default_html);
+    char content_length[3];
+    bzero(content_length, sizeof(content_length));
+    sprintf(content_length, "%lu", html_length);
+
     char send_buf[BUF_MAX];
     bzero(send_buf, sizeof(send_buf));
     strcat(send_buf, "HTTP/1.1 200 OK\r\n");
@@ -53,7 +58,7 @@ void handle(struct handle_args *args) {
     strcat(send_buf, "\r\n");
     strcat(send_buf, "Content-type: text/html; charset=UTF-8\r\n");
     strcat(send_buf, "Content-length: ");
-    strcat(send_buf, "312");
+    strcat(send_buf, content_length);
     strcat(send_buf, "\r\n\r\n");
     const char *html_buf = default_html;
     strcat(send_buf, html_buf);
