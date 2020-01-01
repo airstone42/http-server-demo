@@ -10,7 +10,7 @@ const char default_html[] =
         "</head>\n"
         "<body>\n"
         "    <header>\n"
-        "        <h1>Default Index</a></h1>\n"
+        "        <h1><a href=''>Default Index</a></h1>\n"
         "    </header>\n"
         "    <p>This is an default index page.</p>\n"
         "</body>\n"
